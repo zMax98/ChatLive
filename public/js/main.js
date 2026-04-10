@@ -34,23 +34,6 @@ const promptUsername = () => {
             return promptUsername();
         }
         socket.emit('new_user', user);
-        Swal.fire({
-            text: `${user} se ha unido al chat`,
-            toast: true,
-            position: 'top-right',
-            timer: 3000,
-            showConfirmButton: false,
-            icon: 'info',
-            background: '#0f172a',
-            color: '#f8fafc',
-            customClass: {
-                popup: 'swal2-dark-popup',
-                title: 'swal2-dark-title',
-                content: 'swal2-dark-content',
-                confirmButton: 'swal2-dark-button',
-                icon: 'swal2-dark-icon'
-            },
-        });
         return user;
     });
 };
@@ -113,4 +96,24 @@ socket.on('everyone_message', (data) => {
     const messageElement = document.createElement('p');
     messageElement.innerHTML = `<strong>${data.username}:</strong> ${data.message}`;
     messageContainer.appendChild(messageElement);
+});
+
+socket.on('userConnected', (data) => {
+    Swal.fire({
+        text: data.message,
+        toast: true,
+        position: 'top-right',
+        timer: 3000,
+        showConfirmButton: false,
+        icon: 'info',
+        background: '#0f172a',
+        color: '#f8fafc',
+        customClass: {
+            popup: 'swal2-dark-popup',
+            title: 'swal2-dark-title',
+            content: 'swal2-dark-content',
+            confirmButton: 'swal2-dark-button',
+            icon: 'swal2-dark-icon'
+        },
+    });
 });

@@ -32,8 +32,8 @@ io.on('connection', (socket) => {
     socket.on('new_user', (username) => {
         socket.user = username; // Guardamos el nombre de usuario en la instancia del socket
 
-        //Notificamos a todos los demás usuarios que un nuevo usuario se ha unido al chat
-        socket.broadcast.emit('userConnected', { username: 'Sistema', message: `${username} se ha unido al chat.` });
+        //Notificamos a todos los usuarios que un nuevo usuario se ha unido al chat
+        io.emit('userConnected', { username: 'Sistema', message: `${username} se ha unido al chat.` });
     });
 
     //Escuchamos cuando alguien se desconecta (evento 'disconnect')
